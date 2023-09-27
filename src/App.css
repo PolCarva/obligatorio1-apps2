@@ -1,3 +1,40 @@
 .shadow-text {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+.custom-multicolor-gradient {
+    background: rgb(255,0,0);
+    background: -moz-linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,218,0,1) 20%, rgba(0,255,188,1) 40%, rgba(0,56,251,1) 60%, rgba(227,2,251,1) 80%, rgba(245,6,6,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,218,0,1) 20%, rgba(0,255,188,1) 40%, rgba(0,56,251,1) 60%, rgba(227,2,251,1) 80%, rgba(245,6,6,1) 100%);
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,218,0,1) 20%, rgba(0,255,188,1) 40%, rgba(0,56,251,1) 60%, rgba(227,2,251,1) 80%, rgba(245,6,6,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0000",endColorstr="#f50606",GradientType=1);
+}
+
+.disappear {
+    animation: disappear 5s ease-in-out forwards;
+}
+
+.widthAnimation {
+    animation: widthAnimation 0.8s ease-in-out alternate infinite running;
+}
+
+.stopAnimation {
+    animation-play-state: paused;
+}
+
+@keyframes widthAnimation {
+    from {
+        width: 0%;
+    } to {
+        width: 100%;
+    }
+}
+
+@keyframes disappear {
+    70%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

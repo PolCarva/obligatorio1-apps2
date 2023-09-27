@@ -36,11 +36,18 @@ const QuestionPage = (props) => {
     }, 1000);
   };
 
+  function decodeHTMLEntities(text) {
+    const textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
+  }
+
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
       <h1
         className="text-3xl font-bold w-3/4 text-center"
-        dangerouslySetInnerHTML={{ __html: questionData.question }}
+        dangerouslySetInnerHTML={{ __html: decodeHTMLEntities(questionData.question) }}
       />
       {shuffledOptions.map((option, index) => {
         let buttonClass =
@@ -60,7 +67,7 @@ const QuestionPage = (props) => {
             onClick={() => handleOptionClick(option)}
             className={buttonClass}
           >
-            {option}
+            {decodeHTMLEntities(option)}
           </button>
         );
       })}

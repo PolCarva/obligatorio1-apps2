@@ -5,6 +5,7 @@ import HomePage from "./HomePage";
 import QuestionPage from "./QuestionPage";
 import SummaryPage from "./SummaryPage";
 import RankingPage from "./RankingPage";
+import SettingsPage from "./SettingsPage";
 
 function Game() {
   let navigate = useNavigate();
@@ -15,7 +16,6 @@ function Game() {
   const [categoryId, setCategoryId] = useState(9);
   const [questionAmount, setQuestionAmount] = useState(10);
   const [difficulty, setDifficulty] = useState("easy");
-  const [type, setType] = useState("multiple");
 
   const resetGame = () => {
     setQuestions([]);
@@ -27,11 +27,12 @@ function Game() {
 
   const fetchQuestions = () => {
     fetch(
-      `https://opentdb.com/api.php?amount=${questionAmount}&category=${categoryId}&difficulty=${difficulty}&type=${type}`
+      `https://opentdb.com/api.php?amount=${questionAmount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`
     )
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.results);
+        console.log(categoryId, questionAmount, difficulty);
       })
       .catch((error) =>
         console.error("Error fetching trivia questions:", error)
@@ -40,7 +41,7 @@ function Game() {
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [categoryId, questionAmount, difficulty]);
 
   const selectAnswer = (selectedOption) => {
     const correctAnswer = questions[currentQuestion].correct_answer;
@@ -83,6 +84,8 @@ function Game() {
         }
       />
       <Route path="/ranking" element={<RankingPage score={score}/>} />
+      <Route path="/settings" element={<SettingsPage setDifficulty={setDifficulty} setCategoryId={setCategoryId} setQuestionAmount={setQuestionAmount} />} />
+
     </Routes>
   );
 }
