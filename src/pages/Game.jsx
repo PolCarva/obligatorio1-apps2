@@ -80,10 +80,11 @@ function Game() {
             correctAnswers={score}
             totalQuestions={questionAmount}
             resetGame={resetGame}
+            score={score}
           />
         }
       />
-      <Route path="/ranking" element={<RankingPage score={score}/>} />
+      <Route path="/ranking" element={<RankingPage score={score} resetGame={resetGame}/>} />
       <Route path="/settings" element={<SettingsPage setDifficulty={setDifficulty} setCategoryId={setCategoryId} setQuestionAmount={setQuestionAmount} />} />
 
     </Routes>

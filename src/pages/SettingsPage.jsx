@@ -67,7 +67,12 @@ const SettingsPage = (props) => {
 
   return (
     <div className="min-h-screen p-4 flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
-      {showRoulette && <Roulette />}
+      {showRoulette && (
+        <Roulette
+          closeModal={() => setShowRoulette(false)}
+          onCategorySelected={handleCategoryChange}
+        />
+      )}
       <h1 className="text-3xl text-center font-bold mb-8">Settings</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 md:gr gap-5 w-full md:w-1/2 lg:w-2/5 justify-center">

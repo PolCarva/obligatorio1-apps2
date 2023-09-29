@@ -63,6 +63,7 @@ const QuestionPage = (props) => {
         }
         return (
           <button
+          disabled={showAnswer}
             key={index}
             onClick={() => handleOptionClick(option)}
             className={buttonClass}

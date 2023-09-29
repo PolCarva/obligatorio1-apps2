@@ -20,7 +20,7 @@ const HomePage = (props) => {
           to="/settings"
           className="w-full md:w-1/3 lg:w-1/4 flex justify-center"
         >
-          <button className="bg-gray-400 hover:bg-gray-500 hover:text-gray-100 text-gray-900 font-bold py-4 px-8 w-full lg:text-md rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+          <button className="bg-gray-500 text-white hover:bg-[#5d5d5d] hover:text-gray-100 font-bold py-4 px-8 w-full lg:text-md rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
             Settings
           </button>
         </Link>

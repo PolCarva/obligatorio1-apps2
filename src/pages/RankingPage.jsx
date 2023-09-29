@@ -4,9 +4,10 @@ import Confetti from "react-confetti";
 import { Link } from "react-router-dom";
 
 const RankingPage = (props) => {
+  const { score, resetGame } = props;
+
   const [confetti, setConfetti] = useState(false);
 
-  const { score } = props;
   const [rankings, setRankings] = useState([]);
   const [showModal, setShowModal] = useState(true);
   const [playerName, setPlayerName] = useState("");
@@ -124,6 +125,7 @@ const RankingPage = (props) => {
       <Link
         to="/"
         className="absolute top-2 left-2 hover:text-slate-200 transition-colors"
+        onClick={resetGame}
       >
         Back to home
       </Link>
