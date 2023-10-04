@@ -3,6 +3,8 @@ import toast from "react-hot-toast";
 import Confetti from "react-confetti";
 import { Link } from "react-router-dom";
 
+import { VscDebugRestart } from "react-icons/vsc";
+
 const RankingPage = (props) => {
   const { score, resetGame } = props;
 
@@ -51,7 +53,7 @@ const RankingPage = (props) => {
       {confetti && <Confetti className="disappear" />}
 
       <h1 className="text-4xl font-bold">Ranking</h1>
-      {showModal && (
+      {showModal && score > 0 && (
         <div className="fixed z-10 inset-0 overflow-hidden bg-black bg-opacity-50">
           <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white p-4 rounded-lg shadow-xl w-[90%] md:w-1/2 lg:w-1/3 space-y-4">
@@ -99,7 +101,7 @@ const RankingPage = (props) => {
         <tbody>
           {rankings.length === 0 ? (
             <tr>
-              <td colspan="3" className="px-4 text-center border py-2">
+              <td colSpan="3" className="px-4 text-center border py-2">
                 No one ranked yet, Be the first!
               </td>
             </tr>
@@ -130,12 +132,13 @@ const RankingPage = (props) => {
         Back to home
       </Link>
       <button
-        className="absolute bottom-2 left-2 hover:text-slate-200 transition-colors"
+        className="absolute group flex items-center gap-1 bottom-2 left-2 hover:text-slate-200 transition-colors"
         onClick={() => {
           setRankings([]);
           localStorage.setItem("rankings", JSON.stringify([]));
         }}
       >
+        <VscDebugRestart className="group-hover:-rotate-[360deg] transition-transform ease-in-out duration-500" />
         Reset Ranking
       </button>
     </div>

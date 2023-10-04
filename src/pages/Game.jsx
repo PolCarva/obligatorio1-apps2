@@ -24,7 +24,6 @@ function Game() {
 
     fetchQuestions();
   };
-
   const fetchQuestions = () => {
     fetch(
       `https://opentdb.com/api.php?amount=${questionAmount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`
@@ -32,7 +31,6 @@ function Game() {
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.results);
-        console.log(categoryId, questionAmount, difficulty);
       })
       .catch((error) =>
         console.error("Error fetching trivia questions:", error)
@@ -62,7 +60,17 @@ function Game() {
 
   return (
     <Routes>
-      <Route path="/" exact element={<HomePage />} />
+      <Route
+        path="/"
+        exact
+        element={
+          <HomePage
+            questionAmount={questionAmount}
+            categoryId={categoryId}
+            difficulty={difficulty}
+          />
+        }
+      />
       <Route
         path="/question"
         element={
@@ -84,9 +92,20 @@ function Game() {
           />
         }
       />
-      <Route path="/ranking" element={<RankingPage score={score} resetGame={resetGame}/>} />
-      <Route path="/settings" element={<SettingsPage setDifficulty={setDifficulty} setCategoryId={setCategoryId} setQuestionAmount={setQuestionAmount} />} />
-
+      <Route
+        path="/ranking"
+        element={<RankingPage score={score} resetGame={resetGame} />}
+      />
+      <Route
+        path="/settings"
+        element={
+          <SettingsPage
+            setDifficulty={setDifficulty}
+            setCategoryId={setCategoryId}
+            setQuestionAmount={setQuestionAmount}
+          />
+        }
+      />
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import CloseIcon from "./CloseIcon";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Roulette = ({ onCategorySelected, closeModal }) => {
   const barRef = useRef(null);
@@ -52,7 +52,7 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
         onClick={closeModal}
         className="text-center px-5 flex flex-col justify-center gap-5 w-screen h-screen bg-black bg-opacity-80"
       >
-        <CloseIcon
+        <AiOutlineClose
           onClick={closeModal}
           className={"fill-white w-8 h-8 absolute cursor-pointer top-4 right-4"}
         />
@@ -71,7 +71,11 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
             onClick={handleSpin}
             className="center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 m-auto"
           >
-            <img src="./center.png" alt="" className="max-w-[60px] md:max-w-[100px] w-full" />
+            <img
+              src="./center.png"
+              alt=""
+              className="max-w-[60px] md:max-w-[100px] w-full"
+            />
           </div>
         </div>
         <div className="prize text-xl font-bold">{selectedCategory}</div>

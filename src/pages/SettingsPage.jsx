@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RouletteIcon from "../components/RouletteIcon";
-import RandomIcon from "../components/RandomIcon";
+import { FaRandom } from "react-icons/fa";
 import Roulette from "../components/Roulette";
+import categories from "../data/categories";
 
 const SettingsPage = (props) => {
   const { setDifficulty, setCategoryId, setQuestionAmount } = props;
@@ -43,13 +44,14 @@ const SettingsPage = (props) => {
 
   const randomizeSettings = () => {
     const difficulties = ["easy", "medium", "hard"];
-    const categories = ["9", "17", "12", "15", "10", "21"];
     const amounts = ["5", "10", "15", "20", "25"];
 
     const randomDifficulty =
       difficulties[Math.floor(Math.random() * difficulties.length)];
+
     const randomCategory =
-      categories[Math.floor(Math.random() * categories.length)];
+      categories[Math.floor(Math.random() * categories.length)].id;
+
     const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
 
     setCurrentDifficulty(randomDifficulty);
@@ -114,16 +116,11 @@ const SettingsPage = (props) => {
             onChange={(e) => handleCategoryChange(e.target.value)}
             className="p-2 h-12 md:h-10 bg-white rounded-md shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800 border border-gray-300"
           >
-            <option value="9">General Knowledge</option>
-            <option value="10">Books</option>
-            <option value="11">Movies</option>
-            <option value="14">Television</option>
-            <option value="15">Video Games</option>
-            <option value="12">Music</option>
-            <option value="17">Science & Nature</option>
-            <option value="19">Math</option>
-            <option value="22">Geography</option>
-            <option value="21">Sports</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.display}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex gap-5 items-end">
@@ -141,9 +138,9 @@ const SettingsPage = (props) => {
             onClick={randomizeSettings}
             className="flex group hover:scale-105 transition-all ease-in-out duration-300 justify-center items-center bg-green-500 w-1/2 h-12 md:h-10 shadow-lg rounded"
           >
-            <RandomIcon
+            <FaRandom
               className={
-                "h-8 md:h-7 fill-white group-hover:scale-125 ease-in-out duration-300 transition-all"
+                "h-7 w-7 fill-white group-hover:scale-125 ease-in-out duration-300 transition-all"
               }
             />
           </button>
