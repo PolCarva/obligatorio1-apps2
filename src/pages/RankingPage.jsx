@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { VscDebugRestart } from "react-icons/vsc";
 
 const RankingPage = (props) => {
-  const { score, resetGame } = props;
+  const { score, resetGame, timeOutMode } = props;
+
+  const transformedScore = timeOutMode ? score * 2 : score;
 
   const [confetti, setConfetti] = useState(false);
 
@@ -23,14 +25,14 @@ const RankingPage = (props) => {
     if (playerName === "") return toast.error("Please enter your name");
 
     const savedRankings = JSON.parse(localStorage.getItem("rankings") || "[]");
-    savedRankings.push({ name: playerName, score: score });
+    savedRankings.push({ name: playerName, score: transformedScore });
     savedRankings.sort((a, b) => b.score - a.score);
     localStorage.setItem("rankings", JSON.stringify(savedRankings));
     setRankings(savedRankings);
 
     const playerRanking =
       savedRankings.findIndex(
-        (r) => r.name === playerName && r.score === score
+        (r) => r.name === playerName && r.score === transformedScore
       ) + 1;
 
     toast.success(`Your ranking is ${playerRanking}!`);
@@ -58,7 +60,7 @@ const RankingPage = (props) => {
           <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white p-4 rounded-lg shadow-xl w-[90%] md:w-1/2 lg:w-1/3 space-y-4">
               <h2 className="text-xl font-medium text-center text-black">
-                Score: {score}
+                Score: {transformedScore}
               </h2>
               <h2 className="text-xl font-medium text-gray-900">
                 Enter your name

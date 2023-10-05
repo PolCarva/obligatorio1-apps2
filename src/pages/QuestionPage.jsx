@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import CountdownCircle from "../components/CountdownCircle";
 
 const QuestionPage = (props) => {
-  const { questions, currentQuestion, selectAnswer } = props;
+  const { questions, currentQuestion, selectAnswer, timeOutMode } = props;
   const questionData = questions[currentQuestion];
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState([]);
+  const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
     if (questionData) {
@@ -16,7 +18,26 @@ const QuestionPage = (props) => {
       ];
       setShuffledOptions(options.sort(() => Math.random() - 0.5));
     }
+    //Cuando cambia la pregunta resetea el timer
+    setCountdown(5);
   }, [questionData]);
+
+  useEffect(() => {
+    if (timeOutMode) {
+      const interval = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+
+      // Limpiar el intervalo al desmontar o cambiar de pregunta
+      return () => clearInterval(interval);
+    }
+  }, [questionData]);
+
+  useEffect(() => {
+    if (timeOutMode && countdown === 0) {
+      handleOptionClick(null); // Consider null as an incorrect answer
+    }
+  }, [countdown, timeOutMode]);
 
   if (!questionData)
     return (
@@ -33,21 +54,28 @@ const QuestionPage = (props) => {
       setShowAnswer(false);
       setSelectedOption(null);
       selectAnswer(option);
-    }, 1000);
+    }, 950);
   };
 
   function decodeHTMLEntities(text) {
-    const textArea = document.createElement('textarea');
+    const textArea = document.createElement("textarea");
     textArea.innerHTML = text;
     return textArea.value;
   }
 
-
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
+      {timeOutMode && (
+        <div className="grid relative place-items-center">
+          <CountdownCircle countdown={countdown} />
+          <span className="absolute text-lg font-bold">{countdown}</span>
+        </div>
+      )}
       <h1
         className="text-3xl font-bold w-3/4 text-center"
-        dangerouslySetInnerHTML={{ __html: decodeHTMLEntities(questionData.question) }}
+        dangerouslySetInnerHTML={{
+          __html: decodeHTMLEntities(questionData.question),
+        }}
       />
       {shuffledOptions.map((option, index) => {
         let buttonClass =
@@ -63,7 +91,7 @@ const QuestionPage = (props) => {
         }
         return (
           <button
-          disabled={showAnswer}
+            disabled={showAnswer || countdown === 0}
             key={index}
             onClick={() => handleOptionClick(option)}
             className={buttonClass}

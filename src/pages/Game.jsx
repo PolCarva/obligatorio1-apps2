@@ -16,6 +16,28 @@ function Game() {
   const [categoryId, setCategoryId] = useState(9);
   const [questionAmount, setQuestionAmount] = useState(10);
   const [difficulty, setDifficulty] = useState("easy");
+  const [timeOutMode, setTimeOutMode] = useState(
+    localStorage.getItem("timeOutMode") === "true"
+  );
+
+  useEffect(() => {
+    /* Setea los valores guardados en locale storage si los hay */
+    localStorage.getItem("difficulty") !== null &&
+      setDifficulty(localStorage.getItem("difficulty"));
+
+    localStorage.getItem("questionAmount") !== null &&
+      setQuestionAmount(localStorage.getItem("questionAmount"));
+
+    localStorage.getItem("category") !== null &&
+      setCategoryId(localStorage.getItem("category"));
+
+    localStorage.getItem("timeOutMode") !== null && setTimeOutMode(timeOutMode);
+  }, []);
+
+  const toggleTimeOut = () => {
+    localStorage.setItem("timeOutMode", !timeOutMode);
+    setTimeOutMode(!timeOutMode);
+  };
 
   const resetGame = () => {
     setQuestions([]);
@@ -42,12 +64,15 @@ function Game() {
   }, [categoryId, questionAmount, difficulty]);
 
   const selectAnswer = (selectedOption) => {
+    if (selectedOption === null) {
+      // Si el usuario no selecciona una respuesta, se considera incorrecta
+      selectedOption = "incorrect";
+    }
     const correctAnswer = questions[currentQuestion].correct_answer;
 
     // Si la respuesta es correcta, incrementa el puntaje
     if (selectedOption === correctAnswer) {
       setScore(score + 1);
-      console.log("Score:", score);
     }
 
     // Si hay más preguntas, avanza a la siguiente. Sino, redirige al resumen.
@@ -65,9 +90,12 @@ function Game() {
         exact
         element={
           <HomePage
+            resetGame={resetGame}
             questionAmount={questionAmount}
             categoryId={categoryId}
             difficulty={difficulty}
+            toggleTimeOut={toggleTimeOut}
+            timeOutMode={timeOutMode}
           />
         }
       />
@@ -78,6 +106,7 @@ function Game() {
             questions={questions}
             currentQuestion={currentQuestion}
             selectAnswer={selectAnswer}
+            timeOutMode={timeOutMode}
           />
         }
       />
@@ -89,12 +118,19 @@ function Game() {
             totalQuestions={questionAmount}
             resetGame={resetGame}
             score={score}
+            timeOutMode={timeOutMode}
           />
         }
       />
       <Route
         path="/ranking"
-        element={<RankingPage score={score} resetGame={resetGame} />}
+        element={
+          <RankingPage
+            score={score}
+            resetGame={resetGame}
+            timeOutMode={timeOutMode}
+          />
+        }
       />
       <Route
         path="/settings"

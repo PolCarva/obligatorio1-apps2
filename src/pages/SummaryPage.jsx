@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SummaryPage = (props) => {
-  const { correctAnswers, totalQuestions, resetGame, score } = props;
+  const { correctAnswers, totalQuestions, resetGame, score, timeOutMode } =
+    props;
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
@@ -11,7 +12,15 @@ const SummaryPage = (props) => {
       <p className="text-2xl">{`Incorrect answers: ${
         totalQuestions - correctAnswers
       }`}</p>
-      <p className="text-2xl">{`Total points: ${score}`}</p>
+
+      <p className="text-2xl relative">
+        {`Total points: ${timeOutMode ? score * 2 : score}`}
+        {timeOutMode && (
+          <span className="font-extrabold absolute -top-4 -right-10 rotate-[30deg] text-yellow-400">
+            x2
+          </span>
+        )}
+      </p>
       <Link to="/">
         <button
           onClick={resetGame}

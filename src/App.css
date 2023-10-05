@@ -3,11 +3,11 @@
 }
 
 .custom-multicolor-gradient {
-    background: rgb(255,0,0);
-    background: -moz-linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,218,0,1) 20%, rgba(0,255,188,1) 40%, rgba(0,56,251,1) 60%, rgba(227,2,251,1) 80%, rgba(245,6,6,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,218,0,1) 20%, rgba(0,255,188,1) 40%, rgba(0,56,251,1) 60%, rgba(227,2,251,1) 80%, rgba(245,6,6,1) 100%);
-    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,218,0,1) 20%, rgba(0,255,188,1) 40%, rgba(0,56,251,1) 60%, rgba(227,2,251,1) 80%, rgba(245,6,6,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0000",endColorstr="#f50606",GradientType=1);
+    background: rgb(255, 0, 0);
+    background: -moz-linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 218, 0, 1) 20%, rgba(0, 255, 188, 1) 40%, rgba(0, 56, 251, 1) 60%, rgba(227, 2, 251, 1) 80%, rgba(245, 6, 6, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 218, 0, 1) 20%, rgba(0, 255, 188, 1) 40%, rgba(0, 56, 251, 1) 60%, rgba(227, 2, 251, 1) 80%, rgba(245, 6, 6, 1) 100%);
+    background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 218, 0, 1) 20%, rgba(0, 255, 188, 1) 40%, rgba(0, 56, 251, 1) 60%, rgba(227, 2, 251, 1) 80%, rgba(245, 6, 6, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0000", endColorstr="#f50606", GradientType=1);
 }
 
 .disappear {
@@ -25,16 +25,23 @@
 @keyframes widthAnimation {
     from {
         width: 10%;
-    } to {
+    }
+
+    to {
         width: 100%;
     }
 }
 
 @keyframes disappear {
-    70%{
+    70% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
+}
+
+.rotate40 {
+    transform: rotate(280deg);
 }
