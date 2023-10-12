@@ -14,7 +14,7 @@ import RankingModal from "../components/RankingModal";
 const yayAudio = new Audio(yaySound);
 
 const RankingPage = (props) => {
-  const { score, timeOutMode } = props;
+  const { score, timeOutMode, setScore } = props;
 
   const transformedScore = timeOutMode ? score * 2 : score;
 
@@ -53,6 +53,7 @@ const RankingPage = (props) => {
     toast.success(`Your ranking is ${playerRanking}!`);
     setShowModal(false);
     setConfetti(true);
+    setScore(0);
 
     // Para el confeti
     setTimeout(() => setConfetti(false), 5000);

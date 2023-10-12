@@ -54,14 +54,24 @@ const HomePage = (props) => {
             Start Playing
           </button>
         </Link>
-        <Link
-          to="/settings"
-          className="w-full md:w-1/3 lg:w-1/4 flex justify-center"
-        >
-          <button className="bg-gray-500 text-white hover:bg-[#5d5d5d] hover:text-gray-100 font-bold py-4 px-8 w-full lg:text-md rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
-            Settings
-          </button>
-        </Link>
+        <div className="flex flex-col md:flex-row w-full gap-5 md:w-1/3 lg:w-1/4">
+          <Link
+            to="/ranking"
+            className="w-full flex justify-center"
+          >
+            <button className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-4 px-8 w-full lg:text-md rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+              Ranking
+            </button>
+          </Link>
+          <Link
+            to="/settings"
+            className="w-full flex justify-center"
+          >
+            <button className="bg-gray-500 text-white hover:bg-[#5d5d5d] hover:text-gray-100 font-bold py-4 px-8 w-full lg:text-md rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+              Settings
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

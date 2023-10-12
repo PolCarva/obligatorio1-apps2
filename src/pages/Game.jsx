@@ -140,6 +140,7 @@ function Game() {
         element={
           <RankingPage
             score={score}
+            setScore={setScore}
             resetGame={resetGame}
             timeOutMode={timeOutMode}
           />
