@@ -40,7 +40,7 @@ const HomePage = (props) => {
       <h1 className="text-5xl text-center font-extrabold mb-8 tracking-tight shadow-text">
         Trivia Challenge!
       </h1>
-      <p className="mb-5">
+      <p className="mb-5 text-center">
         <span className="font-bold">{questionAmount}</span> questions about{" "}
         <span className="font-bold">{getCategoryName(categoryId)}</span>,
         difficulty: <span className="font-bold">{difficulty}</span>
