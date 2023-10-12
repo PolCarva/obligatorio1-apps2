@@ -92,7 +92,7 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
             onClick={handleSpin}
             className="roulette w-[90%] max-w-[60vh] h-auto mx-auto aspect-square bg-center bg-cover"
             style={{
-              backgroundImage: `url('./rula.png')`,
+              backgroundImage: `url('./img/rula.png')`,
               transform: `rotate(${rotation}deg)`,
               transition: `transform 6s cubic-bezier(0.2,0.8,0.7,0.99)`,
             }}
@@ -103,7 +103,7 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
             className="center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 m-auto"
           >
             <img
-              src="./center.png"
+              src="./img/center.png"
               alt=""
               className="max-w-[60px] md:max-w-[100px] w-full"
             />
