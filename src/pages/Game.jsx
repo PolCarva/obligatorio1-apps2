@@ -6,6 +6,7 @@ import QuestionPage from "./QuestionPage";
 import SummaryPage from "./SummaryPage";
 import RankingPage from "./RankingPage";
 import SettingsPage from "./SettingsPage";
+import Page404 from "./Page404";
 
 function Game() {
   let navigate = useNavigate();
@@ -85,6 +86,7 @@ function Game() {
 
   return (
     <Routes>
+      <Route path="*" element={<Page404 />} />
       <Route
         path="/"
         exact
