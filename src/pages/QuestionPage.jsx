@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CountdownCircle from "../components/CountdownCircle";
+import backgroundMusic from "../assets/music/quiz-background-music.mp3";
 
 const QuestionPage = (props) => {
   const { questions, currentQuestion, selectAnswer, timeOutMode } = props;
@@ -9,6 +10,19 @@ const QuestionPage = (props) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [countdown, setCountdown] = useState(5);
+
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio(backgroundMusic);
+    audioRef.current.play();
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (questionData) {
@@ -49,11 +63,11 @@ const QuestionPage = (props) => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setShowAnswer(true);
+    selectAnswer(option);
 
     setTimeout(() => {
       setShowAnswer(false);
       setSelectedOption(null);
-      selectAnswer(option);
     }, 950);
   };
 

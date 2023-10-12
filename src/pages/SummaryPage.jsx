@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import triviaEnd from "../assets/music/trivia-end.mp3";
+
+const endTriviaAudio = new Audio(triviaEnd);
 
 const SummaryPage = (props) => {
   const { correctAnswers, totalQuestions, resetGame, score, timeOutMode } =
     props;
+
+    useEffect(() => {
+      const audio = document.querySelector("audio");
+      if (audio) {
+        audio.pause();
+      }
+      endTriviaAudio.play();
+
+
+    }, []);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">

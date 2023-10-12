@@ -6,8 +6,12 @@ import { Link } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import { VscDebugRestart } from "react-icons/vsc";
 
+import yaySound from "../assets/music/yay.mp3";
+
 import RankingTable from "../components/RankingTable";
 import RankingModal from "../components/RankingModal";
+
+const yayAudio = new Audio(yaySound);
 
 const RankingPage = (props) => {
   const { score, timeOutMode } = props;
@@ -17,13 +21,20 @@ const RankingPage = (props) => {
   const [confetti, setConfetti] = useState(false);
 
   const [rankings, setRankings] = useState([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [playerName, setPlayerName] = useState("");
 
   useEffect(() => {
     const savedRankings = JSON.parse(localStorage.getItem("rankings") || "[]");
+    if (score > 0) setShowModal(true);
     setRankings(savedRankings);
   }, []);
+
+  useEffect(() => {
+    if (confetti) {
+      yayAudio.play();
+    }
+  }, [confetti]);
 
   const saveScore = () => {
     if (playerName === "") return toast.error("Please enter your name");
@@ -56,7 +67,7 @@ const RankingPage = (props) => {
 
   return (
     <div className="min-h-screen flex flex-col justify-start items-center bg-gradient-to-br gap-y-5 from-blue-600 to-purple-700 text-white p-5">
-      {confetti && <Confetti className="disappear" />}
+      {confetti && <Confetti className="disappear w-full" />}
 
       <h1 className="text-4xl font-bold mt-20">Ranking</h1>
       <RankingModal
@@ -71,14 +82,14 @@ const RankingPage = (props) => {
 
       <RankingTable rankings={rankings} />
 
-      <Link to="/" className="absolute left-2">
+      <Link to="/" className="fixed left-2">
         <button className="bg-yellow-400 flex gap-2 items-center hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 w-full lg:text-md rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
           <FiArrowLeft />
           Back Home
         </button>
       </Link>
       <button
-        className="absolute group flex items-center gap-1 bottom-2 left-2 hover:text-slate-200 transition-colors"
+        className="fixed group flex items-center gap-1 bottom-2 left-2 hover:text-slate-200 transition-colors"
         onClick={() => {
           setRankings([]);
           localStorage.setItem("rankings", JSON.stringify([]));

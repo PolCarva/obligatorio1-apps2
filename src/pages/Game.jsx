@@ -8,6 +8,12 @@ import RankingPage from "./RankingPage";
 import SettingsPage from "./SettingsPage";
 import Page404 from "./Page404";
 
+import correctAnswerSound from "../assets/music/correct.mp3";
+import incorrectAnswerSound from "../assets/music/incorrect.mp3";
+
+const correctAudio = new Audio(correctAnswerSound);
+const incorrectAudio = new Audio(incorrectAnswerSound);
+
 function Game() {
   let navigate = useNavigate();
 
@@ -74,14 +80,19 @@ function Game() {
     // Si la respuesta es correcta, incrementa el puntaje
     if (selectedOption === correctAnswer) {
       setScore(score + 1);
+      correctAudio.play();
+    } else {
+      incorrectAudio.play();
     }
 
     // Si hay más preguntas, avanza a la siguiente. Sino, redirige al resumen.
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      navigate("/summary");
-    }
+    setTimeout(() => {
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        navigate("/summary");
+      }
+    }, 950);
   };
 
   return (

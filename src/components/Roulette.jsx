@@ -1,8 +1,22 @@
-import { useState, useRef } from "react";
+import categories from "../data/categories";
+import { useState, useRef, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
+/* Sonidos Ruleta */
+import fastSpinSound from "../assets/music/spinSlow.mp3";
+import slowSpinSound from "../assets/music/spinFast.mp3";
+import successSpinSound from "../assets/music/successSpin.mp3";
+
+const fastSpinAudio = new Audio(fastSpinSound);
+const slowSpinAudio = new Audio(slowSpinSound);
+const successSpinAudio = new Audio(successSpinSound);
+
 const Roulette = ({ onCategorySelected, closeModal }) => {
+  const [currentForce, setCurrentForce] = useState(0);
+
   const barRef = useRef(null);
+  const barContainerRef = useRef(null);
+
   const [rotation, setRotation] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("Spin To Play!");
   const [disableSpinButton, setDisableSpinButton] = useState(false);
@@ -13,8 +27,20 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
     barRef.current.classList.toggle("stopAnimation");
     const forceAmount = barRef.current.getBoundingClientRect().width;
 
+    setCurrentForce(forceAmount);
     spin(forceAmount);
   };
+
+  useEffect(() => {
+    //Evita que la ruleta suene al entrar
+    setTimeout(() => {
+      fastSpinAudio.pause();
+      fastSpinAudio.currentTime = 0;
+
+      slowSpinAudio.pause();
+      slowSpinAudio.currentTime = 0;
+    }, 1);
+  }, []);
 
   const spin = (forceAmount) => {
     const randomSpin = Math.floor(Math.random() * 100) + 50;
@@ -26,25 +52,30 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
     barRef.current.classList.toggle("stopAnimation");
     const degrees = ((rotation % 360) + 360) % 360;
 
-    const categories = [
-      { id: 21, display: "Sports" },
-      { id: 22, display: "Geography" },
-      { id: 19, display: "Math" },
-      { id: 17, display: "Science & Nature" },
-      { id: 12, display: "Music" },
-      { id: 15, display: "Video Games" },
-      { id: 14, display: "Television" },
-      { id: 11, display: "Movies" },
-      { id: 10, display: "Books" },
-      { id: 9, display: "General Knowledge" },
-    ];
-
     const categoryIndex = Math.floor(degrees / 36);
     setSelectedCategory(categories[categoryIndex].display);
     onCategorySelected(categories[categoryIndex].id);
 
     setDisableSpinButton(false);
+    successSpinAudio.play();
   };
+
+  useEffect(() => {
+    fastSpinAudio.pause();
+    fastSpinAudio.currentTime = 0;
+
+    slowSpinAudio.pause();
+    slowSpinAudio.currentTime = 0;
+
+    const threshold =
+      0.4 * barContainerRef.current.getBoundingClientRect().width;
+    // Determine if the spin is fast or slow
+    if (currentForce < threshold) {
+      fastSpinAudio.play();
+    } else {
+      slowSpinAudio.play();
+    }
+  }, [currentForce]);
 
   return (
     <div className="fixed inset-0 z-10">
@@ -86,6 +117,7 @@ const Roulette = ({ onCategorySelected, closeModal }) => {
           ></div>
         </div>
         <button
+          ref={barContainerRef}
           onClick={handleSpin}
           disabled={disableSpinButton}
           className="spin w-full md:w-2/5 mx-auto lg:w-1/5 bg-green-400 text-xl rounded-lg py-2 px-8 disabled:text-gray-400 disabled:bg-green-800 disabled:cursor-not-allowed"
