@@ -19,7 +19,7 @@ const SummaryPage = (props) => {
     }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
+    <div className="min-h-[100svh] flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
       <h1 className="text-4xl font-bold">Summary</h1>
       <p className="text-2xl">{`Correct answers: ${correctAnswers}`}</p>
       <p className="text-2xl">{`Incorrect answers: ${

@@ -55,7 +55,7 @@ const QuestionPage = (props) => {
 
   if (!questionData)
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
+      <div className="min-h-[100svh] flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
         <span className="text-3xl font-bold w-3/4 text-center">Loading...</span>
       </div>
     );
@@ -78,7 +78,7 @@ const QuestionPage = (props) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
+    <div className="min-h-[100svh] flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-5 space-y-5">
       {timeOutMode && (
         <div className="grid relative place-items-center">
           <CountdownCircle countdown={countdown} />

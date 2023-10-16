@@ -67,7 +67,7 @@ const RankingPage = (props) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-start items-center bg-gradient-to-br gap-y-5 from-blue-600 to-purple-700 text-white p-5">
+    <div className="min-h-[100svh] flex flex-col justify-start items-center bg-gradient-to-br gap-y-5 from-blue-600 to-purple-700 text-white p-5">
       {confetti && <Confetti className="disappear w-full" />}
 
       <h1 className="text-4xl font-bold mt-20">Ranking</h1>

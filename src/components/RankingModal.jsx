@@ -3,7 +3,7 @@ import React from "react";
 const RankingModal = ({ transformedScore,setPlayerName, showModal, playerName, handleEnter, saveScore, setShowModal }) => {
   return (
   <div className={`fixed z-10 inset-0 bg-black bg-opacity-60 overflow-hidden ${showModal ? "block" : "hidden"}`}>
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-[100svh]">
         <div className="bg-white p-4 rounded-lg shadow-xl w-[90%] md:w-1/2 lg:w-1/3 space-y-4">
           <h2 className="text-xl font-medium text-center text-black">
             You scored {transformedScore} points!

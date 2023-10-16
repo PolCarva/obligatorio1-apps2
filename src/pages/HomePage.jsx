@@ -23,7 +23,7 @@ const HomePage = (props) => {
   }, []);
 
   return (
-    <div className="min-h-screen p-4 flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+    <div className="min-h-[100svh] p-4 flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-purple-700 text-white">
       <div className="absolute top-5 right-5 flex gap-5 items-center">
         <span className="font-bold">Time Out Mode</span>
         <input
