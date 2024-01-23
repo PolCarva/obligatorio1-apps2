@@ -19,6 +19,8 @@ const incorrectAudio = new Audio(incorrectAnswerSound);
 
 function Game() {
   let navigate = useNavigate();
+  let fetchTimer;
+  const [isLoading, setIsLoading] = useState(false);
 
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -56,19 +58,45 @@ function Game() {
 
     fetchQuestions();
   };
-  const fetchQuestions = () => {
+
+  const fetchQuestions = (retryCount = 3) => {
+    if (isLoading) {
+      // If a request is already in progress, do nothing
+      return;
+    }
+
+    setIsLoading(true);
+
     fetch(
       `https://opentdb.com/api.php?amount=${questionAmount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`
     )
       .then((response) => response.json())
       .then((data) => {
-        data.response_code === 0
-          ? setQuestions(data.results)
-          : setQuestions(backupQuestions);
+        console.log(data);
+        if (data.response_code === 0) {
+          setQuestions(data.results);
+        } else {
+          if (retryCount > 0) {
+            // Retry the request with an increasing delay
+            setTimeout(
+              () => fetchQuestions(retryCount - 1),
+              1000 * (4 - retryCount)
+            );
+          } else {
+            setQuestions(backupQuestions);
+          }
+        }
       })
       .catch((error) => {
         console.error("Error fetching trivia questions:", error);
         toast.error("Error fetching trivia questions. Please try again later.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+        // Set a timer to allow fetching again after 5 seconds
+        fetchTimer = setTimeout(() => {
+          fetchTimer = null; // Reset the timer variable
+        }, 5000);
       });
   };
 
