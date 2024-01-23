@@ -4,7 +4,8 @@ import backgroundMusic from "../assets/music/quiz-background-music.mp3";
 
 const QuestionPage = (props) => {
   const { questions, currentQuestion, selectAnswer, timeOutMode } = props;
-  const questionData = questions[currentQuestion];
+  console.log(questions);
+  const questionData = questions[currentQuestion] || null;
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);

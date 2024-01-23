@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
+import { backupQuestions } from "../data/backupQuestions";
+
 import HomePage from "./HomePage";
 import QuestionPage from "./QuestionPage";
 import SummaryPage from "./SummaryPage";
@@ -10,6 +12,7 @@ import Page404 from "./Page404";
 
 import correctAnswerSound from "../assets/music/correct.mp3";
 import incorrectAnswerSound from "../assets/music/incorrect.mp3";
+import toast from "react-hot-toast";
 
 const correctAudio = new Audio(correctAnswerSound);
 const incorrectAudio = new Audio(incorrectAnswerSound);
@@ -59,15 +62,19 @@ function Game() {
     )
       .then((response) => response.json())
       .then((data) => {
-        setQuestions(data.results);
+        data.response_code === 0
+          ? setQuestions(data.results)
+          : setQuestions(backupQuestions);
       })
-      .catch((error) =>
-        console.error("Error fetching trivia questions:", error)
-      );
+      .catch((error) => {
+        console.error("Error fetching trivia questions:", error);
+        toast.error("Error fetching trivia questions. Please try again later.");
+      });
   };
 
   useEffect(() => {
     fetchQuestions();
+    console.log("fetching questions");
   }, [categoryId, questionAmount, difficulty]);
 
   const selectAnswer = (selectedOption) => {
