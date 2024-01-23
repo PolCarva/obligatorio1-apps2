@@ -74,7 +74,6 @@ function Game() {
 
   useEffect(() => {
     fetchQuestions();
-    console.log("fetching questions");
   }, [categoryId, questionAmount, difficulty]);
 
   const selectAnswer = (selectedOption) => {
